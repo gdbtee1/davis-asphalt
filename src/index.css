@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  font-family: 'Inter', sans-serif;
+
+  color: #161616;
+  background: #f1eadf;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  /* =========================
+     DAVIS ASPHALT PALETTE
+  ========================= */
+
+  --asphalt-black: #161616;
+  --charcoal: #23211f;
+
+  --tennessee-blue: #315b72;
+  --tennessee-blue-deep: #1f3f52;
+
+  --southern-red: #a63d2f;
+  --southern-red-dark: #7f2f25;
+
+  --warm-cream: #f1eadf;
+  --paper: #e7dccd;
+
+  --dust-tan: #b89a76;
+  --earth-brown: #665241;
+
+  --field-green: #6c7461;
+
+  --white: #ffffff;
+  --black: #0c0c0c;
+
+  /* compatibility */
+  --tennessee-red: var(--southern-red);
+  --cream: var(--warm-cream);
+  --asphalt: var(--asphalt-black);
+
+  --text-dark: #181715;
+  --text-light: #f1eadf;
+
+  --page-padding: clamp(20px, 4vw, 70px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  background: var(--warm-cream);
+  color: var(--text-dark);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--southern-red);
+  color: var(--warm-cream);
+}
