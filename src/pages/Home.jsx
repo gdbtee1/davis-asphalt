@@ -4,18 +4,20 @@ import {
   Check,
   MapPin,
   Phone,
-  Play,
 } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 import Navbar from '../components/Navbar'
 
 import asphaltVideo from '../assets/videos/asphalt.mp4'
-import projectVideo from '../assets/videos/project-work.mp4'
+import projectVideo from '../assets/videos/process-paving-v2.mp4'
 
-import projectOne from '../assets/images/project-1.jpg'
-import projectTwo from '../assets/images/project-2.jpg'
+const projectOne =
+  'https://images.unsplash.com/photo-1780897524686-2a8dac3b5758?auto=format&fit=crop&w=1800&q=88'
+
+const projectTwo =
+  'https://images.unsplash.com/photo-1773018076638-75caa7558a63?auto=format&fit=crop&w=1800&q=88'
 import projectThree from '../assets/images/project-3.jpg'
-
 import drivewayImage from '../assets/images/service-driveway.jpg'
 import commercialImage from '../assets/images/service-commercial.jpg'
 import repairImage from '../assets/images/service-repair.jpg'
@@ -46,14 +48,30 @@ const services = [
   },
 ]
 
+const reveal = {
+  hidden: { opacity: 0, y: 34 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.72,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+}
+
+const stagger = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.11,
+    },
+  },
+}
+
 function Home() {
   return (
     <main className="home-page">
-
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-
       <section className="home-hero">
         <Navbar />
 
@@ -64,95 +82,62 @@ function Home() {
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
+            disablePictureInPicture
+            aria-hidden="true"
           >
-            <source
-              src={asphaltVideo}
-              type="video/mp4"
-            />
+            <source src={asphaltVideo} type="video/mp4" />
           </video>
 
           <div className="home-hero__overlay" />
           <div className="home-hero__grain" />
         </div>
 
-        <div className="home-hero__side-label">
-          <span>MEMPHIS</span>
-          <span className="home-hero__side-line" />
-          <span>TENNESSEE</span>
-        </div>
-
-        <div className="home-hero__content">
-
-          <div className="home-hero__eyebrow">
-            <span className="home-hero__eyebrow-number">
-              901
-            </span>
-
+        <motion.div
+          className="home-hero__content"
+          initial="hidden"
+          animate="show"
+          variants={stagger}
+        >
+          <motion.div className="home-hero__eyebrow" variants={reveal}>
+            <span className="home-hero__eyebrow-number">901</span>
             <span className="home-hero__eyebrow-line" />
-
             <span className="home-hero__eyebrow-text">
-              COMMERCIAL + RESIDENTIAL ASPHALT
+              MEMPHIS ASPHALT / COMMERCIAL + RESIDENTIAL
             </span>
-          </div>
+          </motion.div>
 
-          <div className="home-hero__headline-wrap">
+          <motion.div className="home-hero__headline-wrap" variants={reveal}>
             <h1 className="home-hero__headline">
               <span>BUILT FOR</span>
               <span>TENNESSEE.</span>
             </h1>
+          </motion.div>
 
-            <div
-              className="home-hero__headline-accent"
-              aria-hidden="true"
-            >
-              <span />
-              <span />
-              <span />
-            </div>
-          </div>
-
-          <div className="home-hero__bottom">
-
+          <motion.div className="home-hero__bottom" variants={reveal}>
             <div className="home-hero__intro">
               <p>
-                Asphalt paving, parking lots, driveways
-                and commercial surfaces built for the
-                roads, businesses and properties of
-                Memphis and surrounding Tennessee
-                communities.
+                Real crews. Real equipment. Asphalt paving built for Memphis
+                homes, businesses and high-traffic properties.
               </p>
 
               <div className="home-hero__actions">
-
                 <a
                   href="tel:9014937651"
                   className="home-hero__primary-button"
                 >
-                  <span>Get an estimate</span>
+                  <span>Get a free quote</span>
                   <ArrowUpRight size={18} />
                 </a>
 
-                <button
-                  type="button"
-                  className="home-hero__video-button"
-                  aria-label="Watch Davis Asphalt work"
-                >
-                  <span className="home-hero__play">
-                    <Play
-                      size={14}
-                      fill="currentColor"
-                    />
-                  </span>
-
-                  <span>Watch our work</span>
-                </button>
-
+                <a href="#featured-work" className="home-hero__work-link">
+                  <span>See the work</span>
+                  <ArrowRight size={16} />
+                </a>
               </div>
             </div>
 
             <div className="home-hero__services">
-
               <div className="home-hero__service">
                 <span>01</span>
                 <p>Parking Lots</p>
@@ -167,365 +152,266 @@ function Home() {
                 <span>03</span>
                 <p>Commercial Jobs</p>
               </div>
-
             </div>
+          </motion.div>
+        </motion.div>
 
-          </div>
-        </div>
+        <div className="home-hero__edge" aria-hidden="true" />
       </section>
 
-      {/* =====================================================
-          WORK
-      ===================================================== */}
+      <section className="home-work" id="featured-work">
+        <motion.div
+          className="home-process"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          variants={stagger}
+        >
+          <motion.div className="home-process__top" variants={reveal}>
+            <div className="home-process__label">
+              <span>01</span>
+              <div />
+              <p>FROM PREP TO FINISH</p>
+            </div>
 
-      <section
-        className="home-work"
-        id="featured-work"
-      >
-
-        <div className="home-work__intro">
-
-          <div className="home-work__label">
-            <span>01</span>
-            <div />
-
-            <p>
-              DAVIS ASPHALT / MEMPHIS TENNESSEE
-            </p>
-          </div>
-
-          <h2>
-            <span>PAVEMENT</span>
-            <span>THAT WORKS.</span>
-          </h2>
-
-          <div className="home-work__intro-bottom">
-
-            <p>
-              Real crews. Real equipment. Real pavement.
-              A look at the work being completed across
-              Memphis and surrounding communities.
-            </p>
-
-            <span className="home-work__location">
-              35.1495° N
-              <br />
-              90.0490° W
+            <span className="home-process__location">
+              MEMPHIS / TENNESSEE / 901
             </span>
+          </motion.div>
 
-          </div>
-        </div>
+          <motion.div className="home-process__heading" variants={reveal}>
+            <h2>
+              <span>SEE THE</span>
+              <span>PROCESS.</span>
+            </h2>
 
-        <div className="home-work__gallery">
+            <p>
+              Great pavement starts before the final surface goes down. See the
+              equipment, crew and preparation behind Davis Asphalt projects
+              across Memphis.
+            </p>
+          </motion.div>
 
-          <article className="home-work__item">
-
-            <div className="home-work__media">
-              <img
-                src={projectOne}
-                alt="Davis Asphalt paving project"
-              />
-            </div>
-
-            <div className="home-work__caption">
-
-              <div>
-                <span>01</span>
-                <strong>Commercial Paving</strong>
-              </div>
-
-              <p>Memphis, Tennessee</p>
-
-            </div>
-          </article>
-
-          <article className="home-work__item">
-
-            <div className="home-work__media">
-              <img
-                src={projectTwo}
-                alt="Asphalt parking lot project"
-              />
-            </div>
-
-            <div className="home-work__caption">
-
-              <div>
-                <span>02</span>
-                <strong>Parking Lots</strong>
-              </div>
-
-              <p>901 Area</p>
-
-            </div>
-          </article>
-
-          <article className="home-work__item">
-
-            <div className="home-work__media">
-              <img
-                src={projectThree}
-                alt="Davis Asphalt driveway project"
-              />
-            </div>
-
-            <div className="home-work__caption">
-
-              <div>
-                <span>03</span>
-                <strong>Driveways</strong>
-              </div>
-
-              <p>Tennessee</p>
-
-            </div>
-          </article>
-
-        </div>
-
-        <div className="home-work__feature">
-
-          <div className="home-work__feature-media">
-
+          <motion.div className="home-process__video" variants={reveal}>
             <video
               autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="auto"
+              disablePictureInPicture
             >
-              <source
-                src={projectVideo}
-                type="video/mp4"
-              />
+              <source src={projectVideo} type="video/mp4" />
             </video>
 
-            <div className="home-work__feature-shade" />
+            <div className="home-process__video-overlay" />
 
-            <div className="home-work__feature-copy">
+            <div className="home-process__video-info">
+              <div>
+                <span>PROCESS / 01</span>
+                <strong>
+                  FROM BASE
+                  <br />
+                  TO BLACKTOP.
+                </strong>
+              </div>
 
-              <span>
+              <span className="home-process__watch">
                 DAVIS ASPHALT / IN MOTION
               </span>
-
-              <h3>
-                BUILT ON
-                <br />
-                THE JOB.
-              </h3>
-
             </div>
+          </motion.div>
 
-          </div>
+          <motion.div className="home-process__gallery-label" variants={reveal}>
+            <span>SELECTED WORK</span>
+            <span>REAL PROJECTS / 901</span>
+          </motion.div>
+        </motion.div>
 
-          <div className="home-work__feature-footer">
+        <motion.div
+          className="home-work__gallery"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.14 }}
+          variants={stagger}
+        >
+          {[
+            [projectOne, 'Commercial Paving', 'Memphis, Tennessee'],
+            [projectTwo, 'Parking Lots', '901 Area'],
+            [projectThree, 'Driveways', 'Tennessee'],
+          ].map(([image, title, location], index) => (
+            <motion.article
+              className={`home-work__item home-work__item--${index + 1}`}
+              key={title}
+              variants={reveal}
+            >
+              <div className="home-work__media">
+                <img src={image} alt={`Davis Asphalt ${title} project`} />
+              </div>
 
-            <p>
-              Asphalt paving and maintenance
-              throughout Memphis, Tennessee.
-            </p>
-
-            <a href="/projects">
-              View all projects
-              <ArrowUpRight size={17} />
-            </a>
-
-          </div>
-
-        </div>
-
+              <div className="home-work__caption">
+                <div>
+                  <span>0{index + 1}</span>
+                  <strong>{title}</strong>
+                </div>
+                <p>{location}</p>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
       </section>
 
-      {/* =====================================================
-          SERVICES
-      ===================================================== */}
-
       <section className="home-services">
-
-        <div className="home-services__heading">
-
-          <div className="home-services__label">
+        <motion.div
+          className="home-services__heading"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+        >
+          <motion.div className="home-services__label" variants={reveal}>
             <span>02</span>
             <div />
-
             <p>WHAT WE DO</p>
-          </div>
+          </motion.div>
 
-          <div className="home-services__heading-grid">
-
+          <motion.div className="home-services__heading-grid" variants={reveal}>
             <h2>
-              PAVING THE
+              BUILT TO
               <br />
-              WAY FORWARD.
+              TAKE TRAFFIC.
             </h2>
 
             <div className="home-services__heading-copy">
-
               <p>
-                From residential driveways to high-traffic
-                commercial pavement, Davis Asphalt handles
-                the surface from preparation through the
-                finished job.
+                Residential driveways, commercial pavement and resurfacing
+                handled with the equipment and preparation the job calls for.
               </p>
 
               <a href="/services">
                 Explore all services
                 <ArrowUpRight size={16} />
               </a>
-
             </div>
-
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div className="home-services__grid">
-
-          {services.map((service) => (
-            <article
-              className="home-service-card"
+          {services.map((service, index) => (
+            <motion.article
+              className={`home-service-card home-service-card--${index + 1}`}
               key={service.number}
+              initial={{ opacity: 0, y: 34 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.16 }}
+              transition={{
+                duration: 0.7,
+                delay: index * 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             >
-
-              <a
-                href="/services"
-                className="home-service-card__media"
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                />
-
+              <a href="/services" className="home-service-card__media">
+                <img src={service.image} alt={service.title} />
                 <span className="home-service-card__number">
                   {service.number}
                 </span>
               </a>
 
               <div className="home-service-card__body">
-
                 <h3>{service.title}</h3>
+                <p>{service.description}</p>
 
-                <p>
-                  {service.description}
-                </p>
-
-                <a
-                  href="/services"
-                  className="home-service-card__link"
-                >
+                <a href="/services" className="home-service-card__link">
                   View service
                   <ArrowRight size={17} />
                 </a>
-
               </div>
-
-            </article>
+            </motion.article>
           ))}
-
         </div>
-
       </section>
-
-      {/* =====================================================
-          CREDIBILITY
-      ===================================================== */}
 
       <section className="home-standard">
-
-        <div className="home-standard__top">
-
-          <div className="home-standard__label">
-            <span>DAVIS STANDARD</span>
-          </div>
-
-          <p>
-            The difference is visible before
-            the crew ever leaves the property.
-          </p>
-
-        </div>
-
-        <div className="home-standard__statement">
-
-          <h2>
-            DONE RIGHT.
-            <br />
-            <span>FROM THE GROUND UP.</span>
-          </h2>
-
-        </div>
-
-        <div className="home-standard__bottom">
-
-          <div className="home-standard__principles">
-
-            <div>
-              <Check size={16} />
-              <span>Proper preparation</span>
+        <motion.div
+          className="home-standard__inner"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+        >
+          <motion.div className="home-standard__top" variants={reveal}>
+            <div className="home-standard__label">
+              <span>DAVIS STANDARD / 901</span>
             </div>
 
-            <div>
-              <Check size={16} />
-              <span>Professional equipment</span>
+            <p>
+              The difference is visible before the crew ever leaves the
+              property.
+            </p>
+          </motion.div>
+
+          <motion.div className="home-standard__statement" variants={reveal}>
+            <h2>
+              DONE RIGHT.
+              <br />
+              <span>FROM THE GROUND UP.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div className="home-standard__bottom" variants={reveal}>
+            <div className="home-standard__principles">
+              <div>
+                <Check size={16} />
+                <span>Proper preparation</span>
+              </div>
+              <div>
+                <Check size={16} />
+                <span>Professional equipment</span>
+              </div>
+              <div>
+                <Check size={16} />
+                <span>Clean finished surfaces</span>
+              </div>
+              <div>
+                <Check size={16} />
+                <span>Residential + commercial</span>
+              </div>
             </div>
 
-            <div>
-              <Check size={16} />
-              <span>Clean finished surfaces</span>
-            </div>
-
-            <div>
-              <Check size={16} />
-              <span>Residential + commercial</span>
-            </div>
-
-          </div>
-
-          <a
-            href="/about"
-            className="home-standard__about"
-          >
-            <span>
-              About Davis Asphalt
-            </span>
-
-            <ArrowUpRight size={20} />
-          </a>
-
-        </div>
-
+            <a href="/about" className="home-standard__about">
+              <span>About Davis Asphalt</span>
+              <ArrowUpRight size={20} />
+            </a>
+          </motion.div>
+        </motion.div>
       </section>
 
-      {/* =====================================================
-          TENNESSEE / SERVICE AREA
-      ===================================================== */}
-
       <section className="home-territory">
+        <div className="home-territory__road-line" aria-hidden="true" />
 
-        <div className="home-territory__flag">
-          <span />
-          <span />
-          <span />
-        </div>
-
-        <div className="home-territory__content">
-
-          <div className="home-territory__eyebrow">
+        <motion.div
+          className="home-territory__content"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+        >
+          <motion.div className="home-territory__eyebrow" variants={reveal}>
             <MapPin size={16} />
             <span>MEMPHIS / TENNESSEE</span>
-          </div>
+          </motion.div>
 
-          <h2>
+          <motion.h2 variants={reveal}>
             LOCAL ROADS.
             <br />
             LOCAL WORK.
-          </h2>
+          </motion.h2>
 
-          <div className="home-territory__lower">
-
+          <motion.div className="home-territory__lower" variants={reveal}>
             <p>
-              Serving Memphis and surrounding Tennessee
-              communities with paving solutions built for
-              local homes, businesses and properties.
+              Serving Memphis and surrounding Tennessee communities with
+              paving solutions built for local homes, businesses and
+              properties.
             </p>
 
             <div className="home-territory__coords">
@@ -533,90 +419,77 @@ function Home() {
               <span>90.0490° W</span>
               <span>AREA / 901</span>
             </div>
+          </motion.div>
+        </motion.div>
 
-          </div>
-
-        </div>
-
-        <div className="home-territory__state-text">
-          TENNESSEE
-        </div>
-
+        <div className="home-territory__state-text">TENNESSEE</div>
       </section>
-
-      {/* =====================================================
-          FINAL CTA
-      ===================================================== */}
 
       <section className="home-cta">
+        <motion.div
+          className="home-cta__inner"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.22 }}
+          variants={stagger}
+        >
+          <motion.div className="home-cta__top" variants={reveal}>
+            <span>HAVE A SURFACE THAT NEEDS WORK?</span>
+            <span>MEMPHIS, TN / 901</span>
+          </motion.div>
 
-        <div className="home-cta__top">
+          <motion.h2 variants={reveal}>
+            LET&apos;S GET IT
+            <br />
+            <span>PAVED.</span>
+          </motion.h2>
 
-          <span>
-            HAVE A SURFACE THAT NEEDS WORK?
-          </span>
+          <motion.div className="home-cta__bottom" variants={reveal}>
+            <p>
+              Tell us about your driveway, parking lot, commercial property or
+              asphalt project.
+            </p>
 
-          <span>
-            MEMPHIS, TN / 901
-          </span>
+            <div className="home-cta__actions">
+              <a href="tel:9014937651" className="home-cta__call">
+                <Phone size={18} />
+                <div>
+                  <span>Call Davis Asphalt</span>
+                  <strong>901-493-7651</strong>
+                </div>
+              </a>
 
-        </div>
+              <a href="/about" className="home-cta__quote">
+                Get a free quote
+                <ArrowUpRight size={19} />
+              </a>
+            </div>
+          </motion.div>
 
-        <h2>
-          LET'S GET IT
-          <br />
-          <span>PAVED.</span>
-        </h2>
-
-        <div className="home-cta__bottom">
-
-          <p>
-            Tell us about your driveway, parking lot,
-            commercial property or asphalt project.
-          </p>
-
-          <div className="home-cta__actions">
-
-            <a
-              href="tel:9014937651"
-              className="home-cta__call"
-            >
-              <Phone size={18} />
-
-              <div>
-                <span>Call Davis Asphalt</span>
-                <strong>901-493-7651</strong>
-              </div>
-            </a>
-
-            <a
-              href="/about"
-              className="home-cta__quote"
-            >
-              Request an estimate
-              <ArrowUpRight size={19} />
-            </a>
-
-          </div>
-
-        </div>
-
-        <div className="home-cta__footer">
-
-          <strong>DAVIS ASPHALT</strong>
-
-          <span>
-            Memphis, Tennessee
-          </span>
-
-          <span>
-            © 2026 Davis Asphalt LLC
-          </span>
-
-        </div>
-
+          <motion.div className="home-cta__footer" variants={reveal}>
+            <strong>DAVIS ASPHALT</strong>
+            <span>Memphis, Tennessee</span>
+            <span>© 2026 Davis Asphalt LLC</span>
+          </motion.div>
+        </motion.div>
       </section>
 
+      <motion.div
+        className="home-mobile-actions"
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.7, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <a href="tel:9014937651" className="home-mobile-actions__call">
+          <Phone size={17} />
+          <span>Call now</span>
+        </a>
+
+        <a href="#featured-work" className="home-mobile-actions__work">
+          <span>See work</span>
+          <ArrowRight size={16} />
+        </a>
+      </motion.div>
     </main>
   )
 }
