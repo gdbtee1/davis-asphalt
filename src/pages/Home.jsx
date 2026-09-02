@@ -93,22 +93,40 @@ function Home() {
 
     playVideos()
 
+    const handleInteraction = () => {
+      playVideos()
+    }
+
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         playVideos()
       }
     }
 
-    const handlePageShow = () => {
-      playVideos()
-    }
+    window.addEventListener('scroll', handleInteraction, {
+      passive: true,
+      once: true,
+    })
 
+    window.addEventListener('touchstart', handleInteraction, {
+      passive: true,
+      once: true,
+    })
+
+    window.addEventListener('pointerdown', handleInteraction, {
+      passive: true,
+      once: true,
+    })
+
+    window.addEventListener('pageshow', playVideos)
     document.addEventListener('visibilitychange', handleVisibilityChange)
-    window.addEventListener('pageshow', handlePageShow)
 
     return () => {
+      window.removeEventListener('scroll', handleInteraction)
+      window.removeEventListener('touchstart', handleInteraction)
+      window.removeEventListener('pointerdown', handleInteraction)
+      window.removeEventListener('pageshow', playVideos)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
-      window.removeEventListener('pageshow', handlePageShow)
     }
   }, [])
 
