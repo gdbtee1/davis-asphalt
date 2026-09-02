@@ -1516,3 +1516,77 @@
     margin-top: 22px !important;
   }
 }
+
+/* =========================================================
+   HERO WRAP FIX — KEEP WORDS INTACT
+   This block intentionally comes last so it wins the cascade.
+========================================================= */
+
+@media (max-width: 900px) {
+  .services-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .services-hero__copy {
+    width: 100%;
+    max-width: 720px;
+  }
+
+  .services-hero__copy h1 {
+    width: 100%;
+    max-width: 720px;
+  }
+}
+
+@media (max-width: 760px) {
+  .services-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .services-hero__copy h1,
+  .services-hero__copy h1 span {
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .services-hero__copy h1 {
+    font-size: clamp(39px, 11.8vw, 50px);
+    line-height: 0.96;
+    letter-spacing: -1.8px;
+
+    overflow-wrap: normal;
+    word-break: keep-all;
+    hyphens: none;
+  }
+
+  .services-hero__copy h1 span {
+    margin-top: 8px;
+    margin-left: 0;
+
+    overflow-wrap: normal;
+    word-break: keep-all;
+    hyphens: none;
+  }
+
+  .services-hero__media {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .services-hero__copy h1 {
+    font-size: clamp(37px, 11.2vw, 46px);
+    line-height: 0.98;
+    letter-spacing: -1.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .services-hero__copy h1 {
+    font-size: 36px;
+  }
+}
