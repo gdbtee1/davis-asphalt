@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import {
   ArrowRight,
   ArrowUpRight,
@@ -70,6 +71,47 @@ const stagger = {
 }
 
 function Home() {
+  const heroVideoRef = useRef(null)
+  const processVideoRef = useRef(null)
+
+  useEffect(() => {
+    const videos = [heroVideoRef.current, processVideoRef.current].filter(Boolean)
+
+    const playVideos = () => {
+      videos.forEach((video) => {
+        video.muted = true
+        video.defaultMuted = true
+        video.playsInline = true
+
+        const playPromise = video.play()
+
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {})
+        }
+      })
+    }
+
+    playVideos()
+
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        playVideos()
+      }
+    }
+
+    const handlePageShow = () => {
+      playVideos()
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('pageshow', handlePageShow)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('pageshow', handlePageShow)
+    }
+  }, [])
+
   return (
     <main className="home-page">
       <section className="home-hero">
@@ -77,14 +119,21 @@ function Home() {
 
         <div className="home-hero__media">
           <video
+            ref={heroVideoRef}
             className="home-hero__video"
             autoPlay
             muted
+            defaultMuted
             loop
             playsInline
             preload="auto"
+            controls={false}
             disablePictureInPicture
             aria-hidden="true"
+            onCanPlay={(event) => {
+              event.currentTarget.muted = true
+              event.currentTarget.play().catch(() => {})
+            }}
           >
             <source src={asphaltVideo} type="video/mp4" />
           </video>
@@ -194,12 +243,19 @@ function Home() {
 
           <motion.div className="home-process__video" variants={reveal}>
             <video
+              ref={processVideoRef}
               autoPlay
               muted
+              defaultMuted
               loop
               playsInline
               preload="auto"
+              controls={false}
               disablePictureInPicture
+              onCanPlay={(event) => {
+                event.currentTarget.muted = true
+                event.currentTarget.play().catch(() => {})
+              }}
             >
               <source src={projectVideo} type="video/mp4" />
             </video>
